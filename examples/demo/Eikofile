@@ -1,0 +1,22 @@
+project "beautiful-demo"
+
+# Variables & Logic
+BUILD_TYPE = "debug"
+USE_GCC = true
+
+print "Configuring project for", BUILD_TYPE
+
+if BUILD_TYPE == "release":
+    flags "-O3", "-DNDEBUG"
+else:
+    flags "-g", "-O0"
+
+if USE_GCC == true:
+    compiler "gcc"
+
+executable "app":
+    sources "main.c", "util.c"
+    
+    if BUILD_TYPE == "debug":
+        print "Adding debug flags to app target"
+        flags "-DDEBUG_BUILD"
